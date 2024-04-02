@@ -27,7 +27,13 @@ let moneyPaid=114
 let change
 let changeAux
 
-
+// Actualizar cid
+function updateCid(){
+    for(let z=0; z<9 ; z++){
+        if(number[z]!=undefined)
+        cid[z][1]=cid[z][1]-number[z]*equivalences[z][1]
+    }
+}
 
 // creamos una funcion que calcule el numero de monedas de cada denominacion
 function calculateTheNumberCoin(){
@@ -36,18 +42,16 @@ function calculateTheNumberCoin(){
         if(changeAux>=equivalences[i][1]){
             number[i]=parseInt(changeAux/equivalences[i][1])
             changeAux=changeAux*100-number[i]*equivalences[i][1]*100
-            changeAux=changeAux/100
-            
+            changeAux=changeAux/100  
                      
         }
-    }    
+    }
+    updateCid()    
 }
 
 // creamos una funcion para calcular el cambio
 function calculateTheChange(){
-    change=moneyPaid-price
-    
-    
+    change=moneyPaid-price  
     // llamamos a una funcion que calcule el numero de monedas que se debe devolver
     calculateTheNumberCoin()
 }
@@ -63,14 +67,17 @@ function enoughMoney(){
     }
 }
 
+// Ejecutamos la funcion que evalua si el pago es suficiente
 enoughMoney()
 
 console.log("Usted paga "+moneyPaid)
 console.log("El producto cuesta "+price)
-
 console.log('Su cambio es '+change)
 for(let j=0; j<9; j++){
     if(number[j]!=undefined){
         console.log(`Recibe ${number[j]} monedas de tipo ${equivalences[j][0]} que cada una vale ${equivalences[j][1]}`)
     }
 }
+console.log(cid)
+
+
